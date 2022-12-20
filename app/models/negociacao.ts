@@ -6,7 +6,7 @@ export class Negociacao {
     }
 
     get data(): Date {
-        return new Date(this._data.getMilliseconds());
+        return new Date(this._data.getTime());
     }
 
     get volume(): number {
