@@ -8,16 +8,18 @@ export abstract class View<T> {
         if (elemento) {
             this.elemento = elemento as HTMLElement;
         } else {
-            throw new Error(`Seletor ${seletor} não existe no DOM.`);
+            throw Error(`Seletor ${seletor} não existe no DOM. Verifique`);
         }
-
+        if (escapar) {
+            this.escapar = escapar;
+        }
     }
 
-    public update(model: T) {
+    public update(model: T): void {
         let template = this.template(model);
         if (this.escapar) {
-            const rx = /<scritp>[\s\S]*?<\/script>/;
-            template = template.replace(rx, '');
+            template = template
+                .replace(/<script>[\s\S]*?<\/script>/, '');
         }
         this.elemento.innerHTML = template;
     }
